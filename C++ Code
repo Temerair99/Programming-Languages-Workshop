@@ -1,0 +1,141 @@
+//Created by Andrew Beechko
+//5/8/2020
+//###################   Libraries   ########################
+//Libraries
+#include "pch.h"
+#include <iostream>
+#include <vector>
+#include <string>
+
+using namespace std;
+//#################   Clases    #######################
+//parent class
+class Person
+{
+public:
+	//default constructor
+	/*Person()
+	{
+		age = 0;
+		name = "";
+	}*/
+	//constructor
+	Person(int a, string n)
+	{
+		age = a;
+		name = n;
+	}
+	//accessor
+	string getname()
+	{
+		return name;
+	}
+	int getage()
+	{
+		return age;
+	}
+	//mutator
+	void setname(string input)
+	{
+		name = input;
+	}
+	void setage(int input)
+	{
+		age = input;
+	}
+private:
+	int age;
+	string name;
+};
+//inheritance
+class Worker : public Person
+{
+public:
+	Worker(int a, string n, string o): Person(a, n)
+	{
+		age = a;
+
+
+
+		name = n;
+		occupation = o;
+	}
+	string getoccupation()
+	{
+		return occupation;
+	}
+	void setoccupation(string input)
+	{
+		occupation = input;
+	}
+private:
+	int age;
+	string name, occupation;
+};
+//############   Functions   #################
+void displayperson(Person n)
+{
+	cout << "Person -> Name: " << n.getname() << " ,Age: " << n.getage() << endl;
+}
+void displayworker(Worker n)
+{
+	cout << "Worker -> Name: " << n.getname() << " ,Age: " << n.getage() << " ,Occupation: " << n.getoccupation()<<endl;
+}
+
+//############   Main Program   ############
+
+int main()
+{
+	//Declaring variables and vectors to store data
+	string ans, n, o;
+	int a;
+	vector<Person> Personvec;
+	vector<Worker> Workervec;
+
+	//Prompting the user to decide on type of input 
+	cout << "Worker, Person, or Exit?";
+	cin >> ans;
+
+	//interpreting the input
+	while (ans != "Exit")
+	{
+		if (ans == "Worker")
+		{
+			cout << "Input Name: ";
+			cin >> n;
+			cout << "Input age:";
+			cin >> a;
+			cout << "Input Occupation: ";
+			cin >> o;
+			Worker newWorker = Worker(a, n, o);
+			Workervec.push_back(newWorker);
+		}
+		else if (ans == "Person")
+		{
+			cout << "Input Name: ";
+			cin >> n;
+			cout << "Input age:";
+			cin >> a;
+			Person newPerson = Person(a, n);
+			Personvec.push_back(newPerson);
+		}
+		else
+		{
+			cout << "Not a valid input." << endl;
+		}
+		//after interpreting the input, prompt the user again
+		cout << "Worker, Person, or Exit?";
+		cin >> ans;
+	}
+
+	//display the contents of both storage vectors
+	for (int i = 0; i < Personvec.size(); i++)
+	{
+		displayperson(Personvec[i]);
+	}
+	for (int i = 0; i < Workervec.size(); i++)
+	{
+		displayworker(Workervec[i]);
+	}
+	return 0;
+}
